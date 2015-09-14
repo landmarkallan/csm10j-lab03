@@ -1,0 +1,120 @@
+// *****************************************************************************
+// * Student Name: Mark Land                          Moorpark College         *
+// * Program Name: Lab03_A.java                       CS M10J (Intro Java)     *
+// * Comment     : IO Ctrl Struct Program             Intro to Prog using Java *
+// *               ch. 4 Prog Exer #5 pg. 243         Fall of 2015             *
+// *               (ch. 1, pg. 24, #17)               Prof. John C. Reynolds   *
+// *****************************************************************************
+
+/*
+Program Purpose:
+
+The purpose of this program is to get user input of the number of pages to be
+faxed, calculate the cost, and display that cost back to the user.
+*/
+
+// Packages~Libraries~Modules:
+
+import java.util.Scanner;
+
+// Classes:
+
+public class Lab03_A
+{
+	// Constants ~ Variables ~ Object Instantiation:
+	
+	static Scanner console = new Scanner(System.in);
+	
+	static final double SERVICE_CHARGE = 3.00, TEN_AND_UNDER = 0.20,
+		OVER_TEN = 0.10;
+	
+	static double total_cost = 0.0;
+	
+	static int page_quantity;
+	
+	// Methods~Functions:
+	
+	public static void main (String[] args)
+	{		
+		// program:
+		
+		Header();
+		Purpose();
+		Program();
+	}
+	public static void Header ()
+	{
+		// Header Info Displayment:
+
+		System.out.println("\n\n****************************************" +
+			"****************************************");
+		System.out.println("* Student Name: Mark Land                        " +
+			"     Moorpark College         *");
+		System.out.println("* Program Name: Lab03_A.java                       "
+			+ "   CS M10J (Intro Java)     *");
+		System.out.println("* Comment     : IO Ctrl Struct Program             "
+			+ "   Intro to Prog using Java *");
+		System.out.println("*               ch. 4 Prog Exer #5 pg. 243         "
+			+ "   Fall of 2015             *");
+		System.out.println("*               (ch. 1, pg. 24, #17)               "
+			+ "   Prof. John C. Reynolds   *");
+		System.out.println("****************************************" +
+			"****************************************\n\n");
+	}
+	public static void Purpose ()
+	{
+		// Purpose Displayment:
+		
+		System.out.println("This program tells the cost to fax the quantity of "
+			+ "pages that you specify\n\n");
+	}
+	public static void Program ()
+	{
+		// prompt for and get user input:
+		
+		System.out.print("Enter the number of pages to be faxed: ");
+		page_quantity = console.nextInt();
+		
+		// checking inputs, calculations, and outputs:
+		
+		if (page_quantity < 0)
+		{
+			System.out.println("Wrong input, try again\n\n");
+			Program();
+		}
+		else if (page_quantity == 0)
+		{
+			System.out.println("You need to input at least 1 page to be faxed" +
+				", wrong input, try again\n\n");
+			Program();
+		}
+		else if (page_quantity > 10)
+		{
+			total_cost = OVER_TEN * (page_quantity - 10) + TEN_AND_UNDER * 10
+				+ SERVICE_CHARGE;
+		}
+		else if (page_quantity > 0 && page_quantity <= 10)
+		{
+			total_cost = TEN_AND_UNDER * page_quantity + SERVICE_CHARGE;
+		}
+		else
+		{
+			System.out.print("Wrong input, try again\n\n");
+			Program();
+		}
+		
+		System.out.printf("The cost to fax %d pages is: $%.2f%n%n",
+			page_quantity, total_cost);
+	}
+}
+
+/*
+I don't understand why~how, but when you do a wrong input, and the
+program loops, and you then type in a correct input, it displays the
+cost output twice (or more: depends on the number of loops ~ wrong
+inputs). This is a bit strange 'order of operations' with the scripting.
+I've not tried it, but I'm guessing putting the cost output into the
+proper 'else ifs' will fix this issue, but that still leaves the
+question of why~how is it doing this, when (seemingly) logically it
+doesn't make any sense (at least me, currently anyways).
+*/
